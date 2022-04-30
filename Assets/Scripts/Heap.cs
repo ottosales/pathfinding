@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Heap<T> : IHeapItem<T> {
+public class Heap<T> where T : IHeapItem<T> {
 	T[] items;
 	int currentItemCount;
 
@@ -60,7 +59,7 @@ public class Heap<T> : IHeapItem<T> {
 			if (childIndexLeft < currentItemCount) {
 				swapIndex = childIndexLeft;
 
-				if (childIndexRight < currentIntemcount) {
+				if (childIndexRight < currentItemCount) {
 					if (items[childIndexLeft].CompareTo(items[childIndexRight]) < 0) {
 						swapIndex = childIndexRight;
 					}
