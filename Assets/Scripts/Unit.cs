@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class Unit : MonoBehaviour {
-
-
 	public Transform target;
-	float speed = 25;
+	public bool isMoving = false;
+	public float speed = 25;
+	int rotationSpeed = 7;
 	Vector3[] path;
 	int targetIndex;
 
@@ -31,6 +31,7 @@ public class Unit : MonoBehaviour {
 			targetIndex = 0;
 			StopCoroutine("FollowPath");
 			StartCoroutine("FollowPath");
+			isMoving = true;
 		}
 	}
 
@@ -40,13 +41,17 @@ public class Unit : MonoBehaviour {
 			if (transform.position == currentWaypoint) {
 				targetIndex++;
 				if (targetIndex >= path.Length) {
+					isMoving = false;
 					yield break;
 				}
 				currentWaypoint = path[targetIndex];
 			}
+			Vector3 pointVector = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
 			transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-			yield return null;
+			Quaternion targetRotation = Quaternion.LookRotation(currentWaypoint - transform.position);
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+			yield return null;
 		}
 	}
 
