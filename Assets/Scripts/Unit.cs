@@ -23,6 +23,12 @@ public class Unit : MonoBehaviour {
 				PathRequestManager.RequestPath(transform.position, targetPoint + new Vector3(0, 3.6f, 0), OnPathFound);
 			}
 		}
+
+		if (Input.GetKeyDown("s")) {
+			print("s pressd");
+			StopCoroutine("FollowPath");
+			isMoving = false;
+		}
 	}
 
 	public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
