@@ -8,10 +8,12 @@ public class CharacterAnimator : MonoBehaviour {
 	const float locomotionAnimationSmoothTime = .1f;
 
 	Animator animator;
-	Unit agent;
+	Controllable agent;
 
 	void Start() {
-		agent = GetComponent<Unit>();
+		print("starting");
+		agent = GetComponent<Controllable>();
+		print(agent);
 		animator = GetComponentInChildren<Animator>();
 	}
 

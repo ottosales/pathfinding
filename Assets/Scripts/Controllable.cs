@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Unit : MonoBehaviour {
-	public Transform target;
+public class Controllable : MonoBehaviour {
 	public bool isMoving = false;
 	public float speed = 25;
 	int rotationSpeed = 7;
