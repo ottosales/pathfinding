@@ -4,9 +4,11 @@ using System.Collections;
 public class Controllable : MonoBehaviour {
 	public bool isMoving = false;
 	public float speed = 25;
-	int rotationSpeed = 7;
+	int rotationSpeed = 12;
 	Vector3[] path;
 	int targetIndex;
+
+	public LayerMask walkableMask;
 
 	void Start() {
 
@@ -17,14 +19,13 @@ public class Controllable : MonoBehaviour {
 			Vector3 mousePosition = Input.mousePosition;
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-			if (Physics.Raycast(ray, out hit)) {
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity, walkableMask)) {
 				Vector3 targetPoint = hit.point;
 				PathRequestManager.RequestPath(transform.position, targetPoint + new Vector3(0, 3.6f, 0), OnPathFound);
 			}
 		}
 
 		if (Input.GetKeyDown("s")) {
-			print("s pressd");
 			StopCoroutine("FollowPath");
 			isMoving = false;
 		}
@@ -36,11 +37,14 @@ public class Controllable : MonoBehaviour {
 			targetIndex = 0;
 			StopCoroutine("FollowPath");
 			StartCoroutine("FollowPath");
-			isMoving = true;
 		}
 	}
 
 	IEnumerator FollowPath() {
+		if (path.Length == 0) yield break;
+
+		isMoving = true;
+
 		Vector3 currentWaypoint = path[0];
 		while (true) {
 			if (transform.position == currentWaypoint) {

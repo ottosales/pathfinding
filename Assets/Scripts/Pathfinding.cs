@@ -23,8 +23,7 @@ public class Pathfinding : MonoBehaviour {
 		bool pathSuccess = false;
 
 		Node startNode = grid.NodeFromWorldPoint(startPos);
-		Node targetNode = grid.NodeFromWorldPoint(targetPos);
-
+		Node targetNode = grid.GetClosestWalkableNode(grid.NodeFromWorldPoint(targetPos));
 
 		if (startNode.walkable && targetNode.walkable) {
 			Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
@@ -45,10 +44,10 @@ public class Pathfinding : MonoBehaviour {
 						continue;
 					}
 
-					int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+					int newMovementCostToNeighbour = currentNode.gCost + Grid.GetDistance(currentNode, neighbour);
 					if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
 						neighbour.gCost = newMovementCostToNeighbour;
-						neighbour.hCost = GetDistance(neighbour, targetNode);
+						neighbour.hCost = Grid.GetDistance(neighbour, targetNode);
 						neighbour.parent = currentNode;
 
 						if (!openSet.Contains(neighbour))
@@ -91,12 +90,5 @@ public class Pathfinding : MonoBehaviour {
 			directionOld = directionNew;
 		}
 		return waypoints.ToArray();
-	}
-
-	int GetDistance(Node a, Node b) {
-		int distanceX = Mathf.Abs(a.gridX - b.gridX);
-		int distanceY = Mathf.Abs(a.gridY - b.gridY);
-
-		return distanceX > distanceY ? 14 * distanceY + 10 * (distanceX - distanceY) : 14 * distanceX + 10 * (distanceY - distanceX);
 	}
 }
