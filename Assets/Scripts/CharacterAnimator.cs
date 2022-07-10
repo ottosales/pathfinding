@@ -11,9 +11,7 @@ public class CharacterAnimator : MonoBehaviour {
 	Controllable agent;
 
 	void Start() {
-		print("starting");
 		agent = GetComponent<Controllable>();
-		print(agent);
 		animator = GetComponentInChildren<Animator>();
 	}
 
@@ -21,5 +19,4 @@ public class CharacterAnimator : MonoBehaviour {
 		bool isMoving = agent.isMoving;
 		animator.SetBool("isMoving", isMoving);
 	}
-
 }
