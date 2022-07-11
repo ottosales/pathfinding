@@ -13,3 +13,9 @@ Things I already started doing / finished doing:
 - Camera movement: moving mouse close to borders
 - Camera movement: stick to character
 - Camera movement: zoom in / out
+
+TODO:
+- Recognize and target other creatures
+- Attacks
+- Skills
+- FX through particle systems and shaders
