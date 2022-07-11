@@ -18,4 +18,5 @@ TODO:
 - Recognize and target other creatures
 - Attacks
 - Skills
+- Basic UI
 - FX through particle systems and shaders
