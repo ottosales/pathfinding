@@ -59,9 +59,9 @@ public class Grid : MonoBehaviour {
 
 	public Node GetClosestWalkableNode(Node targetNode) {
 		Node closestWalkableNodeInGrid = grid[0, 0];
-		int closestWalkableNodeDistance = GetDistance(targetNode, closestWalkableNodeInGrid);
+		int closestWalkableNodeDistance = Node.GetDistance(targetNode, closestWalkableNodeInGrid);
 		foreach (Node node in grid) {
-			int currentNodeDistance = GetDistance(targetNode, node);
+			int currentNodeDistance = Node.GetDistance(targetNode, node);
 			if (currentNodeDistance < closestWalkableNodeDistance && node.walkable) {
 				closestWalkableNodeInGrid = node;
 				closestWalkableNodeDistance = currentNodeDistance;
@@ -91,12 +91,5 @@ public class Grid : MonoBehaviour {
 				// Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
 			}
 		}
-	}
-
-	public static int GetDistance(Node a, Node b) {
-		int distanceX = Mathf.Abs(a.gridX - b.gridX);
-		int distanceY = Mathf.Abs(a.gridY - b.gridY);
-
-		return distanceX > distanceY ? 14 * distanceY + 10 * (distanceX - distanceY) : 14 * distanceX + 10 * (distanceY - distanceX);
 	}
 }

@@ -44,10 +44,10 @@ public class Pathfinding : MonoBehaviour {
 						continue;
 					}
 
-					int newMovementCostToNeighbour = currentNode.gCost + Grid.GetDistance(currentNode, neighbour);
+					int newMovementCostToNeighbour = currentNode.gCost + Node.GetDistance(currentNode, neighbour);
 					if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
 						neighbour.gCost = newMovementCostToNeighbour;
-						neighbour.hCost = Grid.GetDistance(neighbour, targetNode);
+						neighbour.hCost = Node.GetDistance(neighbour, targetNode);
 						neighbour.parent = currentNode;
 
 						if (!openSet.Contains(neighbour))

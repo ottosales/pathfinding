@@ -42,4 +42,11 @@ public class Node : IHeapItem<Node> {
 		}
 		return -compare;
 	}
+
+	public static int GetDistance(Node a, Node b) {
+		int distanceX = Mathf.Abs(a.gridX - b.gridX);
+		int distanceY = Mathf.Abs(a.gridY - b.gridY);
+
+		return distanceX > distanceY ? 14 * distanceY + 10 * (distanceX - distanceY) : 14 * distanceX + 10 * (distanceY - distanceX);
+	}
 }
